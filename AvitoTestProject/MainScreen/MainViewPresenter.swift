@@ -42,3 +42,9 @@ final class MainViewPresenter {
         }
     }
 }
+
+enum Filters: String, CaseIterable {
+    case recomendation = "Рекомендации"
+    case favorities = "Избранное"
+    case new = "Новое"
+}

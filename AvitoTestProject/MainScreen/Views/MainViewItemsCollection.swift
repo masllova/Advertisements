@@ -11,36 +11,49 @@ class MainViewItemsCollection {
     let horizontalStack: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 10
-        view.alignment = .fill
+        view.spacing = 5
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        return view
+    } ()
+    let searchBar: UISearchBar = {
+        let view = UISearchBar()
+        view.placeholder = "Поиск"
+        view.searchBarStyle = .minimal
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
-    let textField: UITextField = {
-        let view = UITextField()
+    let cartButton: UIButton = {
+        let view = UIButton()
+        view.setImage(UIImage(systemName: "cart"), for: .normal)
+        view.tintColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        return view
+    } ()
+    let scrollView: UIScrollView = {
+       let view = UIScrollView()
+        view.showsHorizontalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
+    let filterButtons: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 15
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
+    func createFilterButton(text: String) -> UIButton {
+        let view = UIButton()
+        view.setTitle(text, for: .normal)
+        view.titleLabel?.font = .systemFont(ofSize: 19)
+        view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         view.backgroundColor = .gray
-        view.placeholder = "search"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    } ()
-    let magnifyIcon: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "magnifyingglass"))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    } ()
-    let crossIcon: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "xmark"))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    } ()
-    let cartIcon: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "cart"))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    } ()
-    func createCategoryTitle(text: String) -> UILabel {
-        let view = UILabel()
-        view.text = text
+        view.tintColor = .black
+        view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
@@ -60,5 +73,4 @@ class MainViewItemsCollection {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
-    
 }
