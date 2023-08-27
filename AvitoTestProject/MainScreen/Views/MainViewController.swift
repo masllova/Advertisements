@@ -109,13 +109,18 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdvertisementCell", for: indexPath) as! AdvertisementCell
         let advertisement = presenter.advertisements[indexPath.item]
         cell.titleLabel.text = advertisement.title
-        cell.backgroundColor = .lightGray
+        cell.imageURL = advertisement.imageURL
+        cell.priceLabel.text = advertisement.price
+        cell.locationLabel.text = advertisement.location
+        cell.dateLabel.text = advertisement.createdDate
+        cell.backgroundColor = .white
+        cell.layer.cornerRadius = 11
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - 30
         let itemWidth = availableWidth / 2
-        return CGSize(width: itemWidth, height: 50)
+        return CGSize(width: itemWidth, height: 240)
     }
 }
 
