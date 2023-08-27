@@ -9,7 +9,6 @@ import UIKit
 
 class MainViewController: UIViewController, MainViewPresenterDelegate {
     private let presenter: MainViewPresenter!
-    var loadingIndicator: UIActivityIndicatorView!
     
     init(with presenter: MainViewPresenter!) {
         self.presenter = presenter
@@ -20,6 +19,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var loadingIndicator: UIActivityIndicatorView!
     var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -67,7 +67,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .white
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(AdvertisementCell.self, forCellWithReuseIdentifier: "AdvertisementCell")
         view.addSubview(collectionView)
     }
     
@@ -84,18 +84,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdvertisementCell", for: indexPath) as! AdvertisementCell
         let advertisement = presenter.advertisements[indexPath.item]
-        
-        let label = UILabel(frame: cell.contentView.bounds)
-        label.text = advertisement.title
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        cell.contentView.addSubview(label)
-        
+        cell.titleLabel.text = advertisement.title
         cell.backgroundColor = .lightGray
         return cell
     }
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = collectionView.bounds.width - 30

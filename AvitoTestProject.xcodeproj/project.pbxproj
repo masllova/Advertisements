@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3328C9F42A9B920A00A52E20 /* AdvertisementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328C9F32A9B920A00A52E20 /* AdvertisementCell.swift */; };
+		3328C9F62A9B93E000A52E20 /* MainViewItemsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328C9F52A9B93E000A52E20 /* MainViewItemsCollection.swift */; };
 		33BE8B802A9B569C0028D597 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BE8B7F2A9B569C0028D597 /* AppDelegate.swift */; };
 		33BE8B822A9B569C0028D597 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BE8B812A9B569C0028D597 /* SceneDelegate.swift */; };
 		33BE8B842A9B569C0028D597 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BE8B832A9B569C0028D597 /* MainViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3328C9F32A9B920A00A52E20 /* AdvertisementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCell.swift; sourceTree = "<group>"; };
+		3328C9F52A9B93E000A52E20 /* MainViewItemsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewItemsCollection.swift; sourceTree = "<group>"; };
 		33BE8B7C2A9B569C0028D597 /* AvitoTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33BE8B7F2A9B569C0028D597 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33BE8B812A9B569C0028D597 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3328C9F72A9B93F900A52E20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				33BE8B832A9B569C0028D597 /* MainViewController.swift */,
+				3328C9F32A9B920A00A52E20 /* AdvertisementCell.swift */,
+				3328C9F52A9B93E000A52E20 /* MainViewItemsCollection.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		33BE8B732A9B569C0028D597 = {
 			isa = PBXGroup;
 			children = (
@@ -63,10 +77,10 @@
 			isa = PBXGroup;
 			children = (
 				33BE8B992A9B58240028D597 /* Delegates */,
-				33BE8B982A9B58180028D597 /* Services */,
 				33BE8B9E2A9B599E0028D597 /* Model */,
-				33BE8B972A9B58040028D597 /* DetailView */,
-				33BE8B962A9B57F50028D597 /* MainView */,
+				33BE8B962A9B57F50028D597 /* MainScreen */,
+				33BE8B972A9B58040028D597 /* DetailScreen */,
+				33BE8B982A9B58180028D597 /* Services */,
 				33BE8B952A9B57DD0028D597 /* Assets */,
 				33BE8B8D2A9B569E0028D597 /* Info.plist */,
 			);
@@ -82,21 +96,21 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		33BE8B962A9B57F50028D597 /* MainView */ = {
+		33BE8B962A9B57F50028D597 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				33BE8B832A9B569C0028D597 /* MainViewController.swift */,
 				33BE8B932A9B575D0028D597 /* MainViewPresenter.swift */,
+				3328C9F72A9B93F900A52E20 /* Views */,
 			);
-			path = MainView;
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
-		33BE8B972A9B58040028D597 /* DetailView */ = {
+		33BE8B972A9B58040028D597 /* DetailScreen */ = {
 			isa = PBXGroup;
 			children = (
 				33BE8B9C2A9B58830028D597 /* DatailViewController.swift */,
 			);
-			path = DetailView;
+			path = DetailScreen;
 			sourceTree = "<group>";
 		};
 		33BE8B982A9B58180028D597 /* Services */ = {
@@ -199,6 +213,8 @@
 				33BE8B942A9B575D0028D597 /* MainViewPresenter.swift in Sources */,
 				33BE8B822A9B569C0028D597 /* SceneDelegate.swift in Sources */,
 				33BE8B9B2A9B585E0028D597 /* NetworkManager.swift in Sources */,
+				3328C9F62A9B93E000A52E20 /* MainViewItemsCollection.swift in Sources */,
+				3328C9F42A9B920A00A52E20 /* AdvertisementCell.swift in Sources */,
 				33BE8BA02A9B59B90028D597 /* AdvertisementModel.swift in Sources */,
 				33BE8B9D2A9B58830028D597 /* DatailViewController.swift in Sources */,
 			);
