@@ -9,6 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController, MainViewPresenterDelegate {
     private let presenter: MainViewPresenter!
+    var loadingIndicator: UIActivityIndicatorView!
     
     init(with presenter: MainViewPresenter!) {
         self.presenter = presenter
@@ -25,9 +26,35 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         super.viewDidLoad()
         view.backgroundColor = .purple
         
+        setupLoadingIndicator()
         setupCollectionView()
         presenter.delegate = self
         presenter.fetchAdvertisements()
+    }
+    
+    func setupLoadingIndicator() {
+        loadingIndicator = UIActivityIndicatorView(style: .large)
+        loadingIndicator.color = .black
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingIndicator)
+
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    func showLoadingIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            self?.loadingIndicator.startAnimating()
+        }
+    }
+
+    func hideLoadingIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            self?.loadingIndicator.stopAnimating()
+            self?.loadingIndicator.isHidden = true
+        }
     }
     
     func setupCollectionView() {

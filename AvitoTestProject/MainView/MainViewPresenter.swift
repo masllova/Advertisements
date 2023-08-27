@@ -9,7 +9,10 @@ import Foundation
 
 protocol MainViewPresenterDelegate: AnyObject {
     func dataDidUpdate()
+    func showLoadingIndicator()
+    func hideLoadingIndicator()
 }
+
 
 final class MainViewPresenter {
     var advertisements: [Advertisement] = [] {
@@ -25,14 +28,17 @@ final class MainViewPresenter {
             print("Invalid URL")
             return
         }
-        
+
+        delegate?.showLoadingIndicator() // Показать индикатор загрузки
+
         NetworkManager.fetchData(from: url, responseType: AdvertisementCollection.self) { [weak self] advertisementCollection, error in
             if let advertisements = advertisementCollection?.advertisements {
                 self?.advertisements = advertisements
             } else if let error = error {
                 print("Ошибка при загрузке объявлений: \(error)")
             }
+
+            self?.delegate?.hideLoadingIndicator() // Скрыть индикатор загрузки
         }
     }
 }
-
