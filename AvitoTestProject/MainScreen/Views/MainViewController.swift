@@ -125,6 +125,10 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let advertisement = presenter.advertisements[indexPath.item]
         presenter.fetchAdvertisementDescription(id: advertisement.id)
+        
+        let detailViewController = DetailViewController()
+        detailViewController.advertisement = advertisement
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
