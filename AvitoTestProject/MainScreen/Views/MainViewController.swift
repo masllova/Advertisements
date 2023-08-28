@@ -23,7 +23,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .base
         
         setupSearchPanel()
         setupLoadingIndicator()
@@ -113,7 +113,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.priceLabel.text = advertisement.price
         cell.locationLabel.text = advertisement.location
         cell.dateLabel.text = advertisement.createdDate
-        cell.backgroundColor = .white
+        cell.backgroundColor = .base
         cell.layer.cornerRadius = 11
         return cell
     }

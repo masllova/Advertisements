@@ -58,7 +58,7 @@ class AdvertisementCell: UICollectionViewCell {
             locationLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14),
             locationLabel.leadingAnchor.constraint(equalTo: mapin.trailingAnchor, constant: 1),
             
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
         ])
     }
@@ -77,11 +77,13 @@ class AdvertisementCell: UICollectionViewCell {
         titleLabel.numberOfLines = 2
         titleLabel.font = .systemFont(ofSize: 15)
         titleLabel.textAlignment = .left
+        titleLabel.textColor = .label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
         priceLabel = UILabel()
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.font = .boldSystemFont(ofSize: 16)
+        priceLabel.textColor = .label
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(priceLabel)
     }
     private func infPanelSetUp() {
@@ -91,12 +93,12 @@ class AdvertisementCell: UICollectionViewCell {
         contentView.addSubview(mapin)
         locationLabel = UILabel()
         locationLabel.font = .systemFont(ofSize: 10)
-        locationLabel.textColor = .darkGray
+        locationLabel.textColor = .support
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(locationLabel)
         dateLabel = UILabel()
-        dateLabel.font = .systemFont(ofSize: 10)
-        dateLabel.textColor = .darkGray
+        dateLabel.font = .systemFont(ofSize: 9)
+        dateLabel.textColor = .support
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(dateLabel)
     }

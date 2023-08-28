@@ -27,13 +27,14 @@ class MainViewItemsCollection {
     let cartButton: UIButton = {
         let view = UIButton()
         view.setImage(UIImage(systemName: "cart"), for: .normal)
-        view.tintColor = .black
+        view.tintColor = .support
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 27).isActive = true
         return view
     } ()
     let scrollView: UIScrollView = {
        let view = UIScrollView()
+        view.backgroundColor = .base
         view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -51,8 +52,8 @@ class MainViewItemsCollection {
         view.setTitle(text, for: .normal)
         view.titleLabel?.font = .systemFont(ofSize: 19)
         view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        view.backgroundColor = .gray
-        view.tintColor = .black
+        view.backgroundColor = .subLabel
+        view.tintColor = .support
         view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -63,13 +64,14 @@ class MainViewItemsCollection {
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .background
         view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
     let loadingIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
-        view.color = .gray
+        view.color = .support
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
