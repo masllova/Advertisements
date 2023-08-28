@@ -26,6 +26,11 @@ class AdvertisementCell: UICollectionViewCell {
         setupUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil // Сброс изображения при повторном использовании ячейки
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

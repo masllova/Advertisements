@@ -122,6 +122,10 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let itemWidth = availableWidth / 2
         return CGSize(width: itemWidth, height: 240)
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let advertisement = presenter.advertisements[indexPath.item]
+        presenter.fetchAdvertisementDescription(id: advertisement.id)
+    }
 }
 
 extension MainViewController: UISearchBarDelegate {

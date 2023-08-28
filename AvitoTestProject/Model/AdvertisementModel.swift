@@ -8,7 +8,7 @@
 import Foundation
 
 struct AdvertisementCollection: Codable {
-    let advertisements: [Advertisement]
+    var advertisements: [Advertisement]
 }
 
 struct Advertisement: Codable {
@@ -43,7 +43,6 @@ struct Advertisement: Codable {
         phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
         address = try container.decodeIfPresent(String.self, forKey: .address)
     }
-    
 }
 
 struct Advertisements: Codable {

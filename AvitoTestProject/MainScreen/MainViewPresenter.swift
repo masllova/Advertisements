@@ -20,7 +20,26 @@ final class MainViewPresenter {
             delegate?.dataDidUpdate()
         }
     }
-
+    
+    func fetchAdvertisementDescription(id: String) {
+        guard let url = NetworkManager.urlCreator(for: .detail, idIfNeeded: id) else {
+            print("Invalid URL")
+            return
+        }
+        NetworkManager.fetchData(from: url, responseType: Advertisement.self) { [weak self] advertisement, error in
+            if let item = advertisement {
+                if let index = self?.advertisements.firstIndex(where: { $0.id == id }) {
+                    self?.advertisements[index].description = item.description
+                    self?.advertisements[index].email = item.email
+                    self?.advertisements[index].phoneNumber = item.phoneNumber
+                    self?.advertisements[index].address = item.address
+                    print(self?.advertisements[index])
+                }
+            } else if let error = error {
+                print("Ошибка при загрузке объявлений: \(error)")
+            }
+        }
+    }
     weak var delegate: MainViewPresenterDelegate?
 
     func fetchAdvertisements() {
@@ -29,7 +48,7 @@ final class MainViewPresenter {
             return
         }
 
-        delegate?.showLoadingIndicator() // Показать индикатор загрузки
+        delegate?.showLoadingIndicator()
 
         NetworkManager.fetchData(from: url, responseType: AdvertisementCollection.self) { [weak self] advertisementCollection, error in
             if let advertisements = advertisementCollection?.advertisements {
