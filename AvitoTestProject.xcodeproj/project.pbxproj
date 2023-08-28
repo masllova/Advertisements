@@ -11,6 +11,7 @@
 		3328C9F62A9B93E000A52E20 /* MainViewItemsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328C9F52A9B93E000A52E20 /* MainViewItemsCollection.swift */; };
 		3328CA072A9CD28A00A52E20 /* ColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328CA062A9CD28A00A52E20 /* ColorsExtension.swift */; };
 		3328CA0A2A9D29E400A52E20 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328CA092A9D29E400A52E20 /* DetailViewController.swift */; };
+		3328CA0C2A9D349E00A52E20 /* DetailViewItemsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328CA0B2A9D349E00A52E20 /* DetailViewItemsCollection.swift */; };
 		33BE8B802A9B569C0028D597 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BE8B7F2A9B569C0028D597 /* AppDelegate.swift */; };
 		33BE8B822A9B569C0028D597 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BE8B812A9B569C0028D597 /* SceneDelegate.swift */; };
 		33BE8B842A9B569C0028D597 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BE8B832A9B569C0028D597 /* MainViewController.swift */; };
@@ -26,6 +27,7 @@
 		3328C9F52A9B93E000A52E20 /* MainViewItemsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewItemsCollection.swift; sourceTree = "<group>"; };
 		3328CA062A9CD28A00A52E20 /* ColorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtension.swift; sourceTree = "<group>"; };
 		3328CA092A9D29E400A52E20 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		3328CA0B2A9D349E00A52E20 /* DetailViewItemsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewItemsCollection.swift; sourceTree = "<group>"; };
 		33BE8B7C2A9B569C0028D597 /* AvitoTestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoTestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33BE8B7F2A9B569C0028D597 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33BE8B812A9B569C0028D597 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				3328CA092A9D29E400A52E20 /* DetailViewController.swift */,
+				3328CA0B2A9D349E00A52E20 /* DetailViewItemsCollection.swift */,
 			);
 			path = DetailScreen;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				33BE8B942A9B575D0028D597 /* MainViewPresenter.swift in Sources */,
 				33BE8B822A9B569C0028D597 /* SceneDelegate.swift in Sources */,
 				33BE8B9B2A9B585E0028D597 /* NetworkManager.swift in Sources */,
+				3328CA0C2A9D349E00A52E20 /* DetailViewItemsCollection.swift in Sources */,
 				3328CA072A9CD28A00A52E20 /* ColorsExtension.swift in Sources */,
 				3328C9F62A9B93E000A52E20 /* MainViewItemsCollection.swift in Sources */,
 				3328C9F42A9B920A00A52E20 /* AdvertisementCell.swift in Sources */,
