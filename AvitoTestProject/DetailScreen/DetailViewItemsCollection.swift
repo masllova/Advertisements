@@ -34,24 +34,33 @@ class DetailViewItemsCollection {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
+    let horizontalStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 5
+        view.alignment = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
     let priceLabel: UILabel = {
         let view = UILabel()
         view.textColor = .label
-        view.font = .systemFont(ofSize: 10)
+        view.font = .boldSystemFont(ofSize: 22)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
     let titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .label
-        view.font = .systemFont(ofSize: 10)
+        view.font = .systemFont(ofSize: 16)
+        view.textAlignment = .left
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
     let descriptionLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .label
-        view.font = .systemFont(ofSize: 10)
+        view.textColor = .support
+        view.font = .systemFont(ofSize: 13)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
