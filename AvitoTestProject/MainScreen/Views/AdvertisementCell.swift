@@ -28,6 +28,7 @@ class AdvertisementCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageURL = nil
         imageView.image = nil // Сброс изображения при повторном использовании ячейки
     }
     

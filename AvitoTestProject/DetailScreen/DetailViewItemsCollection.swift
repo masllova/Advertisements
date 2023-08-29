@@ -17,15 +17,15 @@ class DetailViewItemsCollection {
     } ()
     let callButton: UIButton = {
         let view = UIButton()
-        view.setImage(UIImage(systemName: "phone.fill"), for: .normal)
-        view.tintColor = .white
+        view.setImage(UIImage(systemName: "phone")?.resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
+        view.tintColor = .label
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
     let emailButton: UIButton = {
         let view = UIButton()
-        view.setImage(UIImage(systemName: "envelope.fill"), for: .normal)
-        view.tintColor = .white
+        view.setImage(UIImage(systemName: "envelope")?.resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
+        view.tintColor = .label
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
@@ -52,7 +52,7 @@ class DetailViewItemsCollection {
     let titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .label
-        view.font = .systemFont(ofSize: 16)
+        view.font = .boldSystemFont(ofSize: 19)
         view.textAlignment = .left
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -64,11 +64,42 @@ class DetailViewItemsCollection {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
+    let addressLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .support
+        view.font = .systemFont(ofSize: 15)
+        view.textAlignment = .left
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
+    let dateLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .gray
+        view.font = .boldSystemFont(ofSize: 13)
+        view.textAlignment = .left
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
+    let divider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .support
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        return view
+    } ()
+    let backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .subLabel
+        view.layer.cornerRadius = 16
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    } ()
     let buyButton: UIButton = {
         let view = UIButton()
         view.setTitle("Добавить в корзину", for: .normal)
         view.titleLabel?.font = .systemFont(ofSize: 19)
-        view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        view.contentEdgeInsets = UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
         view.backgroundColor = .subLabel
         view.tintColor = .support
         view.layer.cornerRadius = 16
