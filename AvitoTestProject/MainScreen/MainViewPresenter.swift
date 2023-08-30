@@ -20,6 +20,11 @@ final class MainViewPresenter {
             delegate?.dataDidUpdate()
         }
     }
+    var originalAdvertisements: [Advertisement] = [] {
+        didSet {
+            delegate?.dataDidUpdate()
+        }
+    }
     
     func fetchAdvertisementDescription(id: String) {
         guard let url = NetworkManager.urlCreator(for: .detail, idIfNeeded: id) else {
@@ -52,6 +57,7 @@ final class MainViewPresenter {
         NetworkManager.fetchData(from: url, responseType: AdvertisementCollection.self) { [weak self] advertisementCollection, error in
             if let advertisements = advertisementCollection?.advertisements {
                 self?.advertisements = advertisements
+                self?.originalAdvertisements = advertisements
             } else if let error = error {
                 print("Ошибка при загрузке объявлений: \(error)")
             }
