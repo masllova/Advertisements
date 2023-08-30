@@ -10,7 +10,7 @@ import MessageUI
 import MapKit
 
 class DetailViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    var advertisement: Advertisement?
+    unowned var advertisement: Advertisement!
     private let viewItems = DetailViewItemsCollection()
 
     let mapView = MKMapView()

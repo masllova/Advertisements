@@ -33,7 +33,6 @@ final class MainViewPresenter {
                     self?.advertisements[index].email = item.email
                     self?.advertisements[index].phoneNumber = item.phoneNumber
                     self?.advertisements[index].address = item.address
-                    print(self?.advertisements[index])
                 }
             } else if let error = error {
                 print("Ошибка при загрузке объявлений: \(error)")

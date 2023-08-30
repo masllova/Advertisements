@@ -11,7 +11,7 @@ struct AdvertisementCollection: Codable {
     var advertisements: [Advertisement]
 }
 
-struct Advertisement: Codable {
+class Advertisement: Codable {
     let id: String
     let title: String
     let price: String
@@ -22,6 +22,7 @@ struct Advertisement: Codable {
     var email: String?
     var phoneNumber: String?
     var address: String?
+    var isFavorite: Bool
     
     private enum Keys: String, CodingKey {
         case id, title, price, location, description, email, address
@@ -30,7 +31,7 @@ struct Advertisement: Codable {
         case phoneNumber = "phone_number"
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Keys.self)
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
@@ -42,6 +43,7 @@ struct Advertisement: Codable {
         email = try container.decodeIfPresent(String.self, forKey: .email)
         phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
         address = try container.decodeIfPresent(String.self, forKey: .address)
+        isFavorite = false
     }
 }
 
