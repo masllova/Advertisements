@@ -80,8 +80,15 @@ class DetailViewItemsCollection {
         view.backgroundColor = .base
         view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowOpacity = 0.4
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
+        view.layer.shouldRasterize = true
+        view.layer.rasterizationScale = UIScreen.main.scale
         return view
-    } ()
+    }()
     let backMapView: UIView = {
         let view = UIView()
         view.backgroundColor = .base
@@ -99,6 +106,13 @@ class DetailViewItemsCollection {
         view.tintColor = .support
         view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
+        view.layer.shouldRasterize = true
+        view.layer.rasterizationScale = UIScreen.main.scale
         return view
     } ()
 }

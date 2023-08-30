@@ -19,7 +19,7 @@ class AdvertisementCell: UICollectionViewCell {
         }
     }
     var favoriteButtonTapped: (() -> Void)?
-
+    
     var imageURL: URL? {
         didSet {
             loadImage()
@@ -32,6 +32,17 @@ class AdvertisementCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        addShadow()
+    }
+    private func addShadow() {
+        layer.cornerRadius = 11
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 3
+        layer.masksToBounds = false
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
     }
     
     override func prepareForReuse() {
