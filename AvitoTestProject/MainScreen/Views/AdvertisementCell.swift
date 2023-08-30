@@ -12,6 +12,14 @@ class AdvertisementCell: UICollectionViewCell {
     var priceLabel: UILabel!
     var locationLabel: UILabel!
     var dateLabel: UILabel!
+    var isFavorite: Bool = false {
+        didSet {
+            let imageName = isFavorite ? "heart.fill" : "heart"
+            favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+        }
+    }
+    var favoriteButtonTapped: (() -> Void)?
+
     var imageURL: URL? {
         didSet {
             loadImage()
@@ -29,11 +37,15 @@ class AdvertisementCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageURL = nil
-        imageView.image = nil // Сброс изображения при повторном использовании ячейки
+        imageView.image = nil
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    @objc private func objcFavoriteButtonTapped() {
+        favoriteButtonTapped?()
+        isFavorite = !isFavorite
     }
     
     private func setupUI() {
@@ -73,7 +85,8 @@ class AdvertisementCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
         favoriteButton = UIButton()
-        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart.fill" : "heart"), for: .normal)
+        favoriteButton.addTarget(self, action: #selector(objcFavoriteButtonTapped), for: .touchUpInside)
         favoriteButton.tintColor = .white
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(favoriteButton)

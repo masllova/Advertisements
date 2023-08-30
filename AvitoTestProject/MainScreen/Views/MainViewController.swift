@@ -24,7 +24,6 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .base
-        
         setupSearchPanel()
         setupLoadingIndicator()
         setupCollectionView()
@@ -33,6 +32,11 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         presenter.fetchAdvertisements()
     }
     // MARK: - methods
+    func toggleFavoriteStatus(for advertisement: Advertisement) {
+        advertisement.isFavorite.toggle()
+        viewItems.collectionView.reloadData()
+    }
+
     func showLoadingIndicator() {
         DispatchQueue.main.async { [weak self] in
             self?.viewItems.loadingIndicator.startAnimating()
@@ -113,6 +117,10 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.priceLabel.text = advertisement.price
         cell.locationLabel.text = advertisement.location
         cell.dateLabel.text = advertisement.createdDate
+        cell.isFavorite = advertisement.isFavorite
+        cell.favoriteButtonTapped = { [weak self] in
+            self?.toggleFavoriteStatus(for: advertisement)
+        }
         cell.backgroundColor = .base
         cell.layer.cornerRadius = 11
         return cell
@@ -128,6 +136,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let detailViewController = DetailViewController()
         detailViewController.advertisement = advertisement
+        detailViewController.favoriteButtonTapped = { [weak self] in
+            self?.toggleFavoriteStatus(for: advertisement)
+        }
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

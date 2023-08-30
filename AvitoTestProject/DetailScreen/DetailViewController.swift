@@ -12,9 +12,15 @@ import MapKit
 class DetailViewController: UIViewController, MFMailComposeViewControllerDelegate {
     unowned var advertisement: Advertisement!
     private let viewItems = DetailViewItemsCollection()
-
+    var favoriteButtonTapped: (() -> Void)?
     let mapView = MKMapView()
-    
+    var isFavorite = false {
+        didSet {
+            let imageName = isFavorite ? "heart.fill" : "heart"
+            navigationItem.rightBarButtonItems?.last?.image = UIImage(systemName: imageName)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
@@ -32,11 +38,10 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         viewItems.emailButton.addTarget(self, action: #selector(sendEmailButtonTapped), for: .touchUpInside)
         viewItems.addressLabel.text = advertisement?.address
     }
-   
     func navigationSetUp() {
+        isFavorite = advertisement.isFavorite
         navigationController?.navigationBar.tintColor = .label
-        
-        let favoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteButtonTapped))
+        let favoriteButton = UIBarButtonItem(image: UIImage(systemName: isFavorite ? "heart.fill" : "heart"), style: .plain, target: self, action: #selector(objcFavoriteButtonTapped))
         let shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonTapped))
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         
@@ -123,8 +128,9 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             viewItems.buyButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
-    @objc func favoriteButtonTapped() {
-        
+    @objc private func objcFavoriteButtonTapped() {
+        favoriteButtonTapped?()
+        isFavorite = !isFavorite
     }
     @objc func shareButtonTapped() {
         

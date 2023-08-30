@@ -8,13 +8,6 @@
 import UIKit
 
 class DetailViewItemsCollection {
-    let favoriteButton: UIButton = {
-        let view = UIButton()
-        view.setImage(UIImage(systemName: "heart"), for: .normal)
-        view.tintColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    } ()
     let callButton: UIButton = {
         let view = UIButton()
         view.setImage(UIImage(systemName: "phone")?.resizableImage(withCapInsets: .zero, resizingMode: .stretch), for: .normal)
