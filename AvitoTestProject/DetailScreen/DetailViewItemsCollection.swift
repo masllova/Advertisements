@@ -60,8 +60,10 @@ class DetailViewItemsCollection {
     let descriptionLabel: UILabel = {
         let view = UILabel()
         view.textColor = .support
+        view.numberOfLines = 0
         view.font = .systemFont(ofSize: 13)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 300).isActive = true
         return view
     } ()
     let addressLabel: UILabel = {
@@ -74,22 +76,22 @@ class DetailViewItemsCollection {
     } ()
     let dateLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .gray
+        view.textColor = .support
         view.font = .boldSystemFont(ofSize: 13)
         view.textAlignment = .left
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
-    let divider: UIView = {
+    let backAdvertisementView: UIView = {
         let view = UIView()
-        view.backgroundColor = .support
+        view.backgroundColor = .base
+        view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         return view
     } ()
-    let backView: UIView = {
+    let backMapView: UIView = {
         let view = UIView()
-        view.backgroundColor = .subLabel
+        view.backgroundColor = .base
         view.layer.cornerRadius = 16
         view.translatesAutoresizingMaskIntoConstraints = false
         view.translatesAutoresizingMaskIntoConstraints = false
