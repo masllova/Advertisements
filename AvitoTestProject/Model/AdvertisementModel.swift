@@ -46,7 +46,3 @@ class Advertisement: Codable {
         isFavorite = false
     }
 }
-
-struct Advertisements: Codable {
-    let advertisements: [Advertisement]
-}

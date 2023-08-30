@@ -16,14 +16,10 @@ protocol MainViewPresenterDelegate: AnyObject {
 
 final class MainViewPresenter {
     var advertisements: [Advertisement] = [] {
-        didSet {
-            delegate?.dataDidUpdate()
-        }
+        didSet { delegate?.dataDidUpdate() }
     }
     var originalAdvertisements: [Advertisement] = [] {
-        didSet {
-            delegate?.dataDidUpdate()
-        }
+        didSet { delegate?.dataDidUpdate() }
     }
     
     func fetchAdvertisementDescription(id: String) {
@@ -45,15 +41,15 @@ final class MainViewPresenter {
         }
     }
     weak var delegate: MainViewPresenterDelegate?
-
+    
     func fetchAdvertisements() {
         guard let url = NetworkManager.urlCreator(for: .main, idIfNeeded: nil) else {
             print("Invalid URL")
             return
         }
-
+        
         delegate?.showLoadingIndicator()
-
+        
         NetworkManager.fetchData(from: url, responseType: AdvertisementCollection.self) { [weak self] advertisementCollection, error in
             if let advertisements = advertisementCollection?.advertisements {
                 self?.advertisements = advertisements
@@ -61,8 +57,7 @@ final class MainViewPresenter {
             } else if let error = error {
                 print("Ошибка при загрузке объявлений: \(error)")
             }
-
-            self?.delegate?.hideLoadingIndicator() // Скрыть индикатор загрузки
+            self?.delegate?.hideLoadingIndicator()
         }
     }
 }

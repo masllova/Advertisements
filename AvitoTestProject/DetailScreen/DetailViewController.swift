@@ -20,7 +20,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             navigationItem.rightBarButtonItems?.last?.image = UIImage(systemName: imageName)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
@@ -50,16 +50,18 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     func cardSetUp() {
         view.addSubview(viewItems.backAdvertisementView)
+        
         NSLayoutConstraint.activate([
             viewItems.backAdvertisementView.topAnchor.constraint(equalTo: view.topAnchor),
             viewItems.backAdvertisementView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             viewItems.backAdvertisementView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             viewItems.backAdvertisementView.heightAnchor.constraint(equalToConstant: 500)
-            ])
+        ])
     }
     func imageSetUp() {
         loadImage()
         viewItems.backAdvertisementView.addSubview(viewItems.image)
+        
         NSLayoutConstraint.activate([
             viewItems.image.topAnchor.constraint(equalTo: viewItems.backAdvertisementView.topAnchor, constant: 100),
             viewItems.image.leadingAnchor.constraint(equalTo: viewItems.backAdvertisementView.leadingAnchor, constant: 8),
@@ -76,6 +78,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         viewItems.backAdvertisementView.addSubview(viewItems.callButton)
         viewItems.backAdvertisementView.addSubview(viewItems.titleLabel)
         viewItems.backAdvertisementView.addSubview(viewItems.descriptionLabel)
+        
         NSLayoutConstraint.activate([
             viewItems.priceLabel.topAnchor.constraint(equalTo: viewItems.image.bottomAnchor, constant: 10),
             viewItems.priceLabel.leadingAnchor.constraint(equalTo: viewItems.backAdvertisementView.leadingAnchor, constant: 15),
@@ -97,6 +100,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         }
         view.addSubview(viewItems.backMapView)
         view.addSubview(mapView)
+        
         NSLayoutConstraint.activate([
             viewItems.backMapView.topAnchor.constraint(equalTo: viewItems.backAdvertisementView.bottomAnchor, constant: 20),
             viewItems.backMapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -106,13 +110,14 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             mapView.leadingAnchor.constraint(equalTo: viewItems.backMapView.leadingAnchor, constant: 3),
             mapView.trailingAnchor.constraint(equalTo: viewItems.backMapView.trailingAnchor, constant: -3),
             mapView.bottomAnchor.constraint(equalTo: viewItems.backMapView.bottomAnchor, constant: -3)
-                ])
+        ])
     }
     func infPanelSetUp() {
         viewItems.addressLabel.text = "\n"
         viewItems.dateLabel.text = advertisement?.createdDate
         view.addSubview(viewItems.addressLabel)
         view.addSubview(viewItems.dateLabel)
+        
         NSLayoutConstraint.activate([
             viewItems.addressLabel.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 5),
             viewItems.addressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -122,6 +127,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     func buyButtonSetUp() {
         view.addSubview(viewItems.buyButton)
+        
         NSLayoutConstraint.activate([
             viewItems.buyButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
             viewItems.buyButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -133,7 +139,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         isFavorite = !isFavorite
     }
     @objc func shareButtonTapped() {
-        
+       //
     }
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
@@ -145,34 +151,31 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             tel = String(number.unicodeScalars.filter{ characters.contains($0) })
         }
         if let url = URL(string: "tel:\(tel)"), UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-    @objc func sendEmailButtonTapped() {
-        if let recipient = advertisement?.email {
-        if MFMailComposeViewController.canSendMail() {
-            let mailComposeViewController = MFMailComposeViewController()
-            mailComposeViewController.mailComposeDelegate = self
-            mailComposeViewController.setToRecipients([recipient])
-            present(mailComposeViewController, animated: true, completion: nil)
-        } else {
-            print("Устройство не может отправлять почту.")
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    @objc func sendEmailButtonTapped() {
+        if let recipient = advertisement?.email {
+            if MFMailComposeViewController.canSendMail() {
+                let mailComposeViewController = MFMailComposeViewController()
+                mailComposeViewController.mailComposeDelegate = self
+                mailComposeViewController.setToRecipients([recipient])
+                present(mailComposeViewController, animated: true, completion: nil)
+            } else {
+                print("Устройство не может отправлять почту.")
+            }
         }
-        
-        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            controller.dismiss(animated: true, completion: nil)
-        }
+    }
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     func showLocationOnMap(cityName: String) {
         let geocoder = CLGeocoder()
-        
         geocoder.geocodeAddressString(cityName) { (placemarks, error) in
             if let error = error {
                 print("Ошибка геокодирования: \(error.localizedDescription)")
                 return
             }
-            
             if let placemark = placemarks?.first {
                 if let location = placemark.location {
                     let annotation = MKPointAnnotation()

@@ -16,11 +16,9 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .base
@@ -76,8 +74,6 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         }
         viewItems.collectionView.reloadData()
     }
-
-
     func createDateFromStr(dateStr: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -87,12 +83,11 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
             return nil
         }
     }
-    
     // MARK: - views
     func setupSearchPanel() {
         for (index, text) in Filters.allCases.enumerated() {
             let button = viewItems.createFilterButton(text: text.rawValue)
-            button.tag = index // Устанавливаем tag для идентификации кнопки по индексу
+            button.tag = index
             button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
             viewItems.filterButtons.addArrangedSubview(button)
         }
@@ -101,7 +96,6 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         viewItems.horizontalStack.addArrangedSubview(viewItems.searchBar)
         viewItems.horizontalStack.addArrangedSubview(viewItems.cartButton)
         viewItems.searchBar.delegate = self
-        
         view.addSubview(viewItems.scrollView)
         view.addSubview(viewItems.horizontalStack)
         NSLayoutConstraint.activate([

@@ -21,9 +21,7 @@ class AdvertisementCell: UICollectionViewCell {
     var favoriteButtonTapped: (() -> Void)?
     
     var imageURL: URL? {
-        didSet {
-            loadImage()
-        }
+        didSet { loadImage() }
     }
     private var imageView: UIImageView!
     private var favoriteButton: UIButton!
@@ -33,6 +31,14 @@ class AdvertisementCell: UICollectionViewCell {
         super.init(frame: frame)
         setupUI()
         addShadow()
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageURL = nil
+        imageView.image = nil
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     private func addShadow() {
         layer.cornerRadius = 11
@@ -44,21 +50,6 @@ class AdvertisementCell: UICollectionViewCell {
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageURL = nil
-        imageView.image = nil
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    @objc private func objcFavoriteButtonTapped() {
-        favoriteButtonTapped?()
-        isFavorite = !isFavorite
-    }
-    
     private func setupUI() {
         imageSetUp()
         titlePanelSetUp()
@@ -90,6 +81,10 @@ class AdvertisementCell: UICollectionViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
         ])
+    }
+    @objc private func objcFavoriteButtonTapped() {
+        favoriteButtonTapped?()
+        isFavorite = !isFavorite
     }
     private func imageSetUp() {
         imageView = UIImageView()
