@@ -47,6 +47,10 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItems = [shareButton, favoriteButton]
+        
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeBackGesture(_:)))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     func cardSetUp() {
         view.addSubview(viewItems.backAdvertisementView)
@@ -143,6 +147,11 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
     }
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    @objc func swipeBackGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            backButtonTapped()
+        }
     }
     @objc func callButtonTapped() {
         var tel = ""
