@@ -33,6 +33,7 @@ class MainViewController: UIViewController {
     // MARK: - methods
     private func toggleFavoriteStatus(for advertisement: Advertisement) {
         advertisement.isFavorite.toggle()
+        viewItems.collectionView.reloadData()
     }
     @objc private func filterButtonTapped(_ sender: UIButton) {
         selectedIndex = sender.tag
