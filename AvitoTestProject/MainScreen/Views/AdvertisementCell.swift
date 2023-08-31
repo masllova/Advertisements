@@ -24,6 +24,7 @@ class AdvertisementCell: UICollectionViewCell {
         didSet { loadImage() }
     }
     private var imageView: UIImageView!
+    private var loadingIndicator: UIActivityIndicatorView!
     private var favoriteButton: UIButton!
     private var mapin: UIImageView!
     
@@ -40,16 +41,6 @@ class AdvertisementCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    private func addShadow() {
-        layer.cornerRadius = 11
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.4
-        layer.shadowRadius = 3
-        layer.masksToBounds = false
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
-    }
     private func setupUI() {
         imageSetUp()
         titlePanelSetUp()
@@ -59,6 +50,9 @@ class AdvertisementCell: UICollectionViewCell {
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             imageView.heightAnchor.constraint(equalToConstant: 140),
+            
+            loadingIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
             
             favoriteButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 5),
             favoriteButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -5),
@@ -82,6 +76,16 @@ class AdvertisementCell: UICollectionViewCell {
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
         ])
     }
+    private func addShadow() {
+        layer.cornerRadius = 11
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 3
+        layer.masksToBounds = false
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
+    }
     @objc private func objcFavoriteButtonTapped() {
         favoriteButtonTapped?()
         isFavorite = !isFavorite
@@ -90,6 +94,9 @@ class AdvertisementCell: UICollectionViewCell {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
+        loadingIndicator = UIActivityIndicatorView(style: .gray)
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(loadingIndicator)
         favoriteButton = UIButton()
         favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart.fill" : "heart"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(objcFavoriteButtonTapped), for: .touchUpInside)
@@ -129,10 +136,13 @@ class AdvertisementCell: UICollectionViewCell {
     }
     private func loadImage() {
         guard let imageURL = imageURL else { return }
+        loadingIndicator.startAnimating()
+        
         DispatchQueue.global().async {
             if let data = try? Data(contentsOf: imageURL),
                let image = UIImage(data: data) {
                 DispatchQueue.main.async {
+                    self.loadingIndicator.stopAnimating()
                     self.imageView.image = image
                     self.imageView.layer.cornerRadius = 8
                     self.imageView.clipsToBounds = true
@@ -140,4 +150,5 @@ class AdvertisementCell: UICollectionViewCell {
             }
         }
     }
+
 }

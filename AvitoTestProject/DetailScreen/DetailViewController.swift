@@ -65,12 +65,14 @@ class DetailViewController: UIViewController {
     private func imageSetUp() {
         loadImage()
         viewItems.backAdvertisementView.addSubview(viewItems.image)
-        
+        viewItems.backAdvertisementView.addSubview(viewItems.loadingIndicator)
         NSLayoutConstraint.activate([
             viewItems.image.topAnchor.constraint(equalTo: viewItems.backAdvertisementView.topAnchor, constant: 100),
             viewItems.image.leadingAnchor.constraint(equalTo: viewItems.backAdvertisementView.leadingAnchor, constant: 8),
             viewItems.image.trailingAnchor.constraint(equalTo: viewItems.backAdvertisementView.trailingAnchor, constant: -8),
-            viewItems.image.heightAnchor.constraint(equalToConstant: 270)
+            viewItems.image.heightAnchor.constraint(equalToConstant: 270),
+            viewItems.loadingIndicator.centerXAnchor.constraint(equalTo: viewItems.backAdvertisementView.centerXAnchor),
+            viewItems.loadingIndicator.topAnchor.constraint(equalTo: viewItems.backAdvertisementView.topAnchor, constant: 210)
         ])
     }
     private func generalPanelSetUp() {
@@ -196,10 +198,13 @@ class DetailViewController: UIViewController {
     }
     private func loadImage() {
         guard let imageURL = advertisement?.imageURL else { return }
+        viewItems.loadingIndicator.startAnimating()
+        
         DispatchQueue.global().async {
             if let data = try? Data(contentsOf: imageURL),
                let image = UIImage(data: data) {
                 DispatchQueue.main.async {
+                    self.viewItems.loadingIndicator.stopAnimating()
                     self.viewItems.image.image = image
                     self.viewItems.image.layer.cornerRadius = 8
                     self.viewItems.image.clipsToBounds = true

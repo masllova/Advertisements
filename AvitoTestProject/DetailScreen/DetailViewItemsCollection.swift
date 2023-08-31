@@ -27,6 +27,12 @@ class DetailViewItemsCollection {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     } ()
+    let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     let horizontalStack: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
