@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, MainViewPresenterDelegate {
+class MainViewController: UIViewController {
     private let presenter: MainViewPresenter!
     private let viewItems = MainViewItemsCollection()
     private var selectedIndex = 0
@@ -33,55 +33,11 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
     // MARK: - methods
     private func toggleFavoriteStatus(for advertisement: Advertisement) {
         advertisement.isFavorite.toggle()
-        viewItems.collectionView.reloadData()
-    }
-    
-    func showLoadingIndicator() {
-        DispatchQueue.main.async { [weak self] in
-            self?.viewItems.loadingIndicator.startAnimating()
-        }
-    }
-    func hideLoadingIndicator() {
-        DispatchQueue.main.async { [weak self] in
-            self?.viewItems.loadingIndicator.stopAnimating()
-            self?.viewItems.loadingIndicator.isHidden = true
-        }
-    }
-    func dataDidUpdate() {
-        DispatchQueue.main.async { [weak self] in
-            self?.viewItems.collectionView.reloadData()
-        }
     }
     @objc private func filterButtonTapped(_ sender: UIButton) {
         selectedIndex = sender.tag
-        advertisementsfilter()
-    }
-    private func advertisementsfilter() {
-        if selectedIndex == 0 {
-            presenter.advertisements = presenter.originalAdvertisements
-        }
-        if selectedIndex == 1 {
-            presenter.advertisements = presenter.originalAdvertisements.filter({ $0.isFavorite })
-        }
-        if selectedIndex == 2 {
-            presenter.advertisements = presenter.originalAdvertisements.sorted(by: { (ad1, ad2) -> Bool in
-                if let date1 = createDateFromStr(dateStr: ad1.createdDate),
-                   let date2 = createDateFromStr(dateStr: ad2.createdDate) {
-                    return date1 > date2
-                }
-                return false
-            })
-        }
+        presenter.advertisementsfilter(selectedIndex: selectedIndex)
         viewItems.collectionView.reloadData()
-    }
-    private func createDateFromStr(dateStr: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let date = dateFormatter.date(from: dateStr) {
-            return date
-        } else {
-            return nil
-        }
     }
     // MARK: - views
     private func setupSearchPanel() {
@@ -134,6 +90,25 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
             viewItems.collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             viewItems.collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension MainViewController: MainViewPresenterDelegate {
+    func showLoadingIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewItems.loadingIndicator.startAnimating()
+        }
+    }
+    func hideLoadingIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewItems.loadingIndicator.stopAnimating()
+            self?.viewItems.loadingIndicator.isHidden = true
+        }
+    }
+    func dataDidUpdate() {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewItems.collectionView.reloadData()
+        }
     }
 }
 
