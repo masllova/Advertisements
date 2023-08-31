@@ -10,7 +10,7 @@ import UIKit
 class MainViewController: UIViewController, MainViewPresenterDelegate {
     private let presenter: MainViewPresenter!
     private let viewItems = MainViewItemsCollection()
-    var selectedIndex = 0
+    private var selectedIndex = 0
     
     init(with presenter: MainViewPresenter!) {
         self.presenter = presenter
@@ -31,7 +31,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         presenter.fetchAdvertisements()
     }
     // MARK: - methods
-    func toggleFavoriteStatus(for advertisement: Advertisement) {
+    private func toggleFavoriteStatus(for advertisement: Advertisement) {
         advertisement.isFavorite.toggle()
         viewItems.collectionView.reloadData()
     }
@@ -56,7 +56,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         selectedIndex = sender.tag
         advertisementsfilter()
     }
-    func advertisementsfilter() {
+    private func advertisementsfilter() {
         if selectedIndex == 0 {
             presenter.advertisements = presenter.originalAdvertisements
         }
@@ -74,7 +74,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         }
         viewItems.collectionView.reloadData()
     }
-    func createDateFromStr(dateStr: String) -> Date? {
+    private func createDateFromStr(dateStr: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         if let date = dateFormatter.date(from: dateStr) {
@@ -84,7 +84,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
         }
     }
     // MARK: - views
-    func setupSearchPanel() {
+    private func setupSearchPanel() {
         for (index, text) in Filters.allCases.enumerated() {
             let button = viewItems.createFilterButton(text: text.rawValue)
             button.tag = index
@@ -114,7 +114,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
             viewItems.filterButtons.bottomAnchor.constraint(equalTo: viewItems.scrollView.bottomAnchor),
         ])
     }
-    func setupLoadingIndicator() {
+    private func setupLoadingIndicator() {
         view.addSubview(viewItems.loadingIndicator)
         
         NSLayoutConstraint.activate([
@@ -122,7 +122,7 @@ class MainViewController: UIViewController, MainViewPresenterDelegate {
             viewItems.loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    func setupCollectionView() {
+    private func setupCollectionView() {
         viewItems.collectionView.dataSource = self
         viewItems.collectionView.delegate = self
         viewItems.collectionView.register(AdvertisementCell.self, forCellWithReuseIdentifier: "AdvertisementCell")

@@ -9,17 +9,17 @@ import UIKit
 import MessageUI
 import MapKit
 
-class DetailViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class DetailViewController: UIViewController {
     unowned var advertisement: Advertisement!
     private let viewItems = DetailViewItemsCollection()
     var favoriteButtonTapped: (() -> Void)?
-    let mapView = MKMapView()
     var isFavorite = false {
         didSet {
             let imageName = isFavorite ? "heart.fill" : "heart"
             navigationItem.rightBarButtonItems?.last?.image = UIImage(systemName: imageName)
         }
     }
+    private let mapView = MKMapView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         viewItems.emailButton.addTarget(self, action: #selector(sendEmailButtonTapped), for: .touchUpInside)
         viewItems.addressLabel.text = advertisement?.address
     }
-    func navigationSetUp() {
+    private func navigationSetUp() {
         isFavorite = advertisement.isFavorite
         navigationController?.navigationBar.tintColor = .label
         let favoriteButton = UIBarButtonItem(image: UIImage(systemName: isFavorite ? "heart.fill" : "heart"), style: .plain, target: self, action: #selector(objcFavoriteButtonTapped))
@@ -52,7 +52,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         swipeGesture.direction = .right
         view.addGestureRecognizer(swipeGesture)
     }
-    func cardSetUp() {
+    private func cardSetUp() {
         view.addSubview(viewItems.backAdvertisementView)
         
         NSLayoutConstraint.activate([
@@ -62,7 +62,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             viewItems.backAdvertisementView.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
-    func imageSetUp() {
+    private func imageSetUp() {
         loadImage()
         viewItems.backAdvertisementView.addSubview(viewItems.image)
         
@@ -73,7 +73,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             viewItems.image.heightAnchor.constraint(equalToConstant: 270)
         ])
     }
-    func generalPanelSetUp() {
+    private func generalPanelSetUp() {
         viewItems.priceLabel.text = advertisement?.price
         viewItems.titleLabel.text = advertisement?.title
         viewItems.descriptionLabel.text = "\n"
@@ -96,7 +96,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             viewItems.descriptionLabel.leadingAnchor.constraint(equalTo: viewItems.backAdvertisementView.leadingAnchor, constant: 15),
         ])
     }
-    func mapSetUp() {
+    private func mapSetUp() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.layer.cornerRadius = 16
         if let city = advertisement?.location{
@@ -116,7 +116,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             mapView.bottomAnchor.constraint(equalTo: viewItems.backMapView.bottomAnchor, constant: -3)
         ])
     }
-    func infPanelSetUp() {
+    private func infPanelSetUp() {
         viewItems.addressLabel.text = "\n"
         viewItems.dateLabel.text = advertisement?.createdDate
         view.addSubview(viewItems.addressLabel)
@@ -129,7 +129,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             viewItems.dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
     }
-    func buyButtonSetUp() {
+    private func buyButtonSetUp() {
         view.addSubview(viewItems.buyButton)
         
         NSLayoutConstraint.activate([
@@ -142,18 +142,18 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
         favoriteButtonTapped?()
         isFavorite = !isFavorite
     }
-    @objc func shareButtonTapped() {
+    @objc private func shareButtonTapped() {
        //
     }
-    @objc func backButtonTapped() {
+    @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    @objc func swipeBackGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc private func swipeBackGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
         if gestureRecognizer.state == .ended {
             backButtonTapped()
         }
     }
-    @objc func callButtonTapped() {
+    @objc private func callButtonTapped() {
         var tel = ""
         if let number = advertisement?.phoneNumber {
             let characters = CharacterSet.decimalDigits
@@ -163,7 +163,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-    @objc func sendEmailButtonTapped() {
+    @objc private func sendEmailButtonTapped() {
         if let recipient = advertisement?.email {
             if MFMailComposeViewController.canSendMail() {
                 let mailComposeViewController = MFMailComposeViewController()
@@ -175,10 +175,7 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
             }
         }
     }
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-    func showLocationOnMap(cityName: String) {
+    private func showLocationOnMap(cityName: String) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(cityName) { (placemarks, error) in
             if let error = error {
@@ -209,5 +206,11 @@ class DetailViewController: UIViewController, MFMailComposeViewControllerDelegat
                 }
             }
         }
+    }
+}
+
+extension DetailViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
